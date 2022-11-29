@@ -1,0 +1,14 @@
+@import "../../assets/sass/abstracts/variables";
+
+.header {
+  font-size: 1.4rem;
+  color: $color-primary;
+  background-color: white;
+  padding: 1rem 0;
+  border-bottom: 1px solid lightgrey;
+
+  &__nav-link {
+    color: inherit;
+    text-decoration: none;
+  }
+}
