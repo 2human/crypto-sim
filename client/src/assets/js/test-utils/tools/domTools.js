@@ -3,7 +3,7 @@ import React from "react";
 import ReactTestUtils, { act } from "react-dom/test-utils";
 import { BrowserRouter } from "react-router-dom";
 import { Provider } from "react-redux";
-import { configureStore } from "../../../store";
+import { configureStore } from "../../../../store";
 import { storeSpy } from "expect-redux";
 
 export const createContainer = () => {

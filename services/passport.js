@@ -6,13 +6,19 @@ const keys = require("../config/keys");
 const User = mongoose.model("users"); //single argument loads data out of users
 
 passport.serializeUser((user, done) => {
+  console.log("serializing");
   //done is the callback onSuccess
   done(null, user.id); //user id is Mongo DB id key, and will be the data contained within the cookie
 });
 
 passport.deserializeUser((id, done) => {
+  console.log("deserializing");
   User.findById(id).then(user => {
-    done(null, user);
+    if (user) {
+      done(null, user);
+    } else {
+      done(null, {});
+    }
   });
 });
 

@@ -1,11 +1,12 @@
 import React from "react";
+import { createContainer } from "../../assets/js/test-utils/domTools";
 import {
   childrenOf,
   createShallowRenderer,
   prop,
   type,
-} from "./test-utils/shallowHelpers";
-import { createContainer } from "./assets/js/test-utils/domTools";
+} from "../../assets/js/test-utils/shallowDomTools";
+import { Prices } from "./Prices";
 
 describe("", () => {
   let render, element, elements;

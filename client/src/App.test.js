@@ -1,46 +1,42 @@
-import { AppBar } from "@mui/material";
 import React from "react";
 import { Routes } from "react-router-dom";
+import "whatwg-fetch";
 import { App } from "./App";
-import { createContainer } from "./assets/js/test-utils/domTools";
+import { createContainer } from "./assets/js/test-utils/tools/domTools";
 import {
   childrenOf,
   createShallowRenderer,
+  id,
   prop,
   type,
-} from "./assets/js/test-utils/domToolsShallow";
+} from "./assets/js/test-utils/shallowDomTools";
 import { ConnectedHeader } from "./layouts/Header/ConnectedHeader";
-import { Header } from "./layouts/Header/Header";
+import { Prices } from "./pages/prices/Prices";
 
 describe("App", () => {
-  let renderWithStoreAndRouter, element, elements;
-
   let shallowRender, elementMatching, elementsMatching;
 
   beforeEach(() => {
-    ({ renderWithStoreAndRouter, element, elements } = createContainer());
     ({ shallowRender, elementMatching, elementsMatching } =
       createShallowRenderer());
   });
-
-  const render = component => renderWithStoreAndRouter(component);
 
   const childRoutes = () => childrenOf(elementMatching(type(Routes)));
   const routeFor = path => childRoutes().find(prop("path", path));
 
   it("renders the #App component", () => {
-    render(<App />);
-    expect(element("#App")).not.toBeNull();
+    shallowRender(<App />);
+    expect(elementMatching(id("App"))).toBeDefined();
   });
 
   it("renders the Header by default", () => {
     shallowRender(<App />);
-    expect(elementMatching(Header)).not.toBeNull();
+    expect(elementMatching(type(ConnectedHeader))).toBeDefined();
   });
 
-  it.skip("renders the Header by default", () => {
+  it("renders the Header by default", () => {
     shallowRender(<App />);
     expect(routeFor("/")).toBeDefined();
-    expect(routeFor("/").props.element.type).toEqual(ConnectedHeader);
+    expect(routeFor("/").props.element.type).toEqual(Prices);
   });
 });

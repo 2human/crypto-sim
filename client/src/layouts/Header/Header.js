@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./Header.scss";
 import { NavLink } from "react-router-dom";
 
@@ -7,7 +7,11 @@ import NavBar from "react-bootstrap/NavBar";
 import Container from "react-bootstrap/Container";
 import Button from "react-bootstrap/Button";
 
-export const Header = ({ loggedIn }) => {
+export const Header = ({ loggedIn, updateLoginStatus }) => {
+  useEffect(() => {
+    updateLoginStatus();
+  }, []);
+
   return (
     <NavBar id="header" className="header" bg="white">
       <Container>
@@ -33,4 +37,5 @@ const Header__LoginBtn = () => (
 );
 Header.defaultProps = {
   loggedIn: false,
+  updateLoginStatus: () => {},
 };

@@ -6,11 +6,10 @@ import {
 } from "../../assets/js/test-utils/spyHelpers";
 import { configureStore } from "..";
 import { setLoginStatus, setUserId, updateLoginStatus } from "../actions";
-import { fetchUser } from "./sagaHelpers";
 
 describe("updateLogin", () => {
   let store;
-  const user = { id: 123123 };
+  const user = { _id: 123123 };
 
   beforeEach(() => {
     jest.spyOn(window, "fetch").mockReturnValue(fetchResponseOk(user));

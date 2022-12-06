@@ -1,34 +1,42 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
-import { createContainer } from "../../assets/js/test-utils/domTools";
+import "whatwg-fetch";
+import { createContainer } from "../../assets/js/test-utils/tools/domTools";
 import {
   createConnectorShallowRenderer,
   createShallowRenderer,
   type,
-} from "../../assets/js/test-utils/domToolsShallow";
+} from "../../assets/js/test-utils/shallowDomTools";
 import { Logo } from "../../components/Logo/Logo";
-import { ConnectedHeader, mapStateToProps } from "./ConnectedHeader";
+import { updateLoginStatus } from "../../store/actions";
+import {
+  ConnectedHeader,
+  mapDispatchToProps,
+  mapStateToProps,
+} from "./ConnectedHeader";
 import { Header } from "./Header";
 
 describe("Header", () => {
-  let render, renderWithRouter, element, elements;
+  let renderWithRouter, element, elements;
 
   let shallowRender, elementMatching, elementsMatching;
 
   beforeEach(() => {
-    ({ render, renderWithRouter, element, elements } = createContainer());
+    ({ renderWithRouter, element, elements } = createContainer());
     ({ shallowRender, elementMatching, elementsMatching } =
       createShallowRenderer());
   });
 
+  const render = component => renderWithRouter(component);
+
   it("renders the #header component", () => {
-    renderWithRouter(<Header />);
+    render(<Header />);
     expect(element("#header")).not.toBeNull();
   });
 
   describe("logo", () => {
     it("renders the logo element", () => {
-      renderWithRouter(<Header />);
+      render(<Header />);
       expect(element(".logo")).not.toBeNull();
     });
 
@@ -43,25 +51,25 @@ describe("Header", () => {
 
   describe("login btn", () => {
     it("is rendered by default", () => {
-      renderWithRouter(<Header />);
+      render(<Header />);
       const loginBtn = element(".header__login-btn");
       expect(loginBtn).not.toBeNull();
       expect(loginBtn.textContent).toEqual("Login");
     });
 
     it("contains a link to the login path", () => {
-      renderWithRouter(<Header />);
+      render(<Header />);
       expect(element(".header__login-btn").href).toContain("/auth/google");
     });
 
     it("is rendered when loggedIn is false", () => {
-      renderWithRouter(<Header loggedIn={false} />);
+      render(<Header loggedIn={false} />);
       const loginBtn = element(".header__login-btn");
       expect(loginBtn).not.toBeNull();
     });
 
     it("is not rendered when loggedIn is true", () => {
-      renderWithRouter(<Header loggedIn={true} />);
+      render(<Header loggedIn={true} />);
       const loginBtn = element(".header__login-btn");
       expect(loginBtn).toBeNull();
     });
@@ -69,27 +77,33 @@ describe("Header", () => {
 
   describe("logout btn", () => {
     it("is not rendered when loggedIn is false", () => {
-      renderWithRouter(<Header loggedIn={false} />);
+      render(<Header loggedIn={false} />);
       const logoutBtn = element(".header__logout-btn");
       expect(logoutBtn).toBeNull();
     });
 
     it("is rendered when loggedIn is true", () => {
-      renderWithRouter(<Header loggedIn={true} />);
+      render(<Header loggedIn={true} />);
       const logoutBtn = element(".header__logout-btn");
       expect(logoutBtn).not.toBeNull();
     });
 
     it("is rendered when with the right text content", () => {
-      renderWithRouter(<Header loggedIn={true} />);
+      render(<Header loggedIn={true} />);
       const logoutBtn = element(".header__logout-btn");
       expect(logoutBtn.textContent).toEqual("Logout");
     });
 
     it("contains a link to the logout path", () => {
-      renderWithRouter(<Header loggedIn={true} />);
+      render(<Header loggedIn={true} />);
       const logoutBtn = element(".header__logout-btn");
       expect(logoutBtn.href).toContain("/api/logout");
+    });
+
+    it("calls updateLoginStatus when mounted", () => {
+      let updateSpy = jest.fn();
+      render(<Header updateLoginStatus={updateSpy} />);
+      expect(updateSpy).toHaveBeenCalled();
     });
   });
 });
@@ -116,6 +130,18 @@ describe("ConnectedHeader", () => {
   it("maps the right state to props", () => {
     expect(mapStateToProps(state)).toMatchObject({
       loggedIn: state.auth.loggedIn,
+    });
+  });
+
+  it("mapsStateToProps", () => {
+    expect(mapStateToProps(state)).toMatchObject({
+      loggedIn: state.auth.loggedIn,
+    });
+  });
+
+  it("mapsDispatchToProps", () => {
+    expect(mapDispatchToProps).toMatchObject({
+      updateLoginStatus,
     });
   });
 });

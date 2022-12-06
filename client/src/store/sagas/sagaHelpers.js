@@ -1,1 +1,1 @@
-export const fetchUser = async () => window.fetch("/api/current_user");
+export const fetchUser = async () => await window.fetch("/api/current_user");

@@ -1,5 +1,5 @@
-import { createContainer } from "../domTools";
-import { createShallowRenderer } from "../domToolsShallow";
+import { createContainer } from "../tools/domTools";
+import { createShallowRenderer, type } from "../shallowDomTools";
 
 let render, element;
 
@@ -25,7 +25,7 @@ export const itRendersTheComponent = (parent, component) => {
 };
 
 export const itRendersWithPropValue = (parent, component, prop, value) => {
-  it(`renders a ${component} component with the right ${prop} value`, () => {
+  it(`renders a component with the right ${prop} value`, () => {
     shallowRender(parent);
     //get array of elements in case element exists more than once
     let renderedComponents = elementsMatching(type(component));
