@@ -1,4 +1,4 @@
-import { SET_LOGIN_STATUS, SET_USER_ID } from "../actions/actionTypes";
+import { SET_LOGIN_STATUS, SET_USER_ID } from "../../actions/actionTypes";
 
 export const defaultState = { loggedIn: false, userId: undefined };
 

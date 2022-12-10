@@ -1,5 +1,5 @@
 import { createContainer } from "../tools/domTools";
-import { createShallowRenderer, type } from "../shallowDomTools";
+import { createShallowRenderer, type } from "../tools/shallowDomTools";
 
 let render, element;
 

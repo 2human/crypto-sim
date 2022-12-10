@@ -6,7 +6,6 @@ import {
   prop,
   type,
 } from "../../assets/js/test-utils/shallowDomTools";
-import { Prices } from "./Prices";
 
 describe("", () => {
   let render, element, elements;

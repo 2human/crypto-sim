@@ -2,7 +2,7 @@ import React from "react";
 import { Provider } from "react-redux";
 import { Router } from "react-router-dom";
 import { storeSpy } from "expect-redux";
-import { configureStore } from "../../../store";
+import { configureStore } from "../../../../store";
 import { act } from "react-dom/test-utils";
 import ShallowRenderer from "react-test-renderer/shallow";
 import { appHistory } from "./history";

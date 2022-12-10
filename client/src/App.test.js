@@ -9,7 +9,7 @@ import {
   id,
   prop,
   type,
-} from "./assets/js/test-utils/shallowDomTools";
+} from "./assets/js/test-utils/tools/shallowDomTools";
 import { ConnectedHeader } from "./layouts/Header/ConnectedHeader";
 import { Prices } from "./pages/prices/Prices";
 

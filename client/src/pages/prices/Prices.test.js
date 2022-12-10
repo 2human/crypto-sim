@@ -1,11 +1,12 @@
 import React from "react";
+import "whatwg-fetch";
 import { createContainer } from "../../assets/js/test-utils/tools/domTools";
 import {
   childrenOf,
   createShallowRenderer,
   prop,
   type,
-} from "../../assets/js/test-utils/shallowDomTools";
+} from "../../assets/js/test-utils/tools/shallowDomTools";
 import {
   itRendersTheComponent,
   itRendersWithPropValue,
@@ -136,6 +137,18 @@ describe("", () => {
       render(<Prices coins={coins} />);
       expect(firstRowDataCells()[5].textContent).toEqual(coins[0].supply);
       expect(secondRowDataCells()[5].textContent).toEqual(coins[1].supply);
+    });
+
+    it("renders the .coin-icon element in the name cell", () => {
+      render(<Prices coins={coins} />);
+      const firstRowIcon = element(
+        ".prices__tbody .prices__tr:nth-child(1) .prices__td .coin-icon"
+      );
+      const secondRowIcon = element(
+        ".prices__tbody .prices__tr:nth-child(2) .prices__td .coin-icon"
+      );
+      expect(firstRowIcon).not.toBeNull();
+      expect(secondRowIcon).not.toBeNull();
     });
   });
 });

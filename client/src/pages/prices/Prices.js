@@ -1,7 +1,20 @@
 import React from "react";
+import { useEffect } from "react";
 import Table from "react-bootstrap/Table";
+import { CoinIcon } from "../../components/CoinIcon/CoinIcon";
+
+const getPrices = async () => {
+  const res = await fetch(
+    "https://api.coinbase.com/v2/exchange-rates?currency=USD"
+  );
+  const prices = await res.json();
+  console.log(prices.data);
+};
 
 export const Prices = ({ coins }) => {
+  useEffect(() => {
+    getPrices();
+  }, []);
   return (
     <div id="prices" className="prices">
       <Prices__Table>
@@ -16,9 +29,12 @@ export const Prices = ({ coins }) => {
           </Prices__TR>
         </Prices__THead>
         <Prices__TBody>
-          {coins.map(coin => (
-            <Prices__TR key={coin.name}>
-              <Prices__TD>{coin.name}</Prices__TD>
+          {coins.map((coin, i) => (
+            <Prices__TR key={coin.name + " " + i}>
+              <Prices__TD>
+                <CoinIcon name={coin.name} />
+                {coin.name}
+              </Prices__TD>
               <Prices__TD>{coin.price}</Prices__TD>
               <Prices__TD>{coin.change}</Prices__TD>
               <Prices__TD>{coin.marketCap}</Prices__TD>

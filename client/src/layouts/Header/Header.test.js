@@ -6,7 +6,7 @@ import {
   createConnectorShallowRenderer,
   createShallowRenderer,
   type,
-} from "../../assets/js/test-utils/shallowDomTools";
+} from "../../assets/js/test-utils/tools/shallowDomTools";
 import { Logo } from "../../components/Logo/Logo";
 import { updateLoginStatus } from "../../store/actions";
 import {

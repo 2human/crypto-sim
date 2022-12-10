@@ -3,7 +3,7 @@ import "whatwg-fetch";
 import {
   fetchResponseError,
   fetchResponseOk,
-} from "../../assets/js/test-utils/spyHelpers";
+} from "../../assets/js/test-utils/tools/spyHelpers";
 import { configureStore } from "..";
 import { setLoginStatus, setUserId, updateLoginStatus } from "../actions";
 

@@ -1,5 +1,5 @@
-import { itMaintainsExistingState } from "../../assets/js/test-utils/reusableTests/reducerTests";
-import { setLoginStatus, setUserId } from "../actions";
+import { itMaintainsExistingState } from "../../../assets/js/test-utils/reusableTests/reducerTests";
+import { setLoginStatus, setUserId } from "../../actions";
 import { authReducer, defaultState } from "./authReducer";
 
 describe("authReducer", () => {
