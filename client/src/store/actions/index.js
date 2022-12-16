@@ -2,8 +2,11 @@ import {
   SET_LOGIN_STATUS,
   UPDATE_LOGIN_STATUS,
   SET_USER_ID,
-  UPDATE_CURRENT_PRICES,
-  SET_CURRENT_PRICES,
+  UPDATE_PRICES,
+  SET_PRICES,
+  GET_COINS,
+  SET_COINS,
+  SET_COINS_REQUEST_ERROR,
 } from "./actionTypes";
 
 export const setLoginStatus = status => {
@@ -19,9 +22,21 @@ export const setUserId = userId => {
 };
 
 export const updatePrices = () => {
-  return { type: UPDATE_CURRENT_PRICES };
+  return { type: UPDATE_PRICES };
 };
 
-export const setCurrentPrices = prices => {
-  return { type: SET_CURRENT_PRICES, payload: prices };
+export const setPrices = prices => {
+  return { type: SET_PRICES, payload: prices };
+};
+
+export const getCoins = () => {
+  return { type: GET_COINS };
+};
+
+export const setCoins = coins => {
+  return { type: SET_COINS, payload: coins };
+};
+
+export const setCoinsRequestError = status => {
+  return { type: SET_COINS_REQUEST_ERROR, payload: status };
 };

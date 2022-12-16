@@ -1,13 +1,23 @@
 import { storeSpy, expectRedux } from "expect-redux";
 import "whatwg-fetch";
-import { fetchResponseOk } from "../../assets/js/test-utils/tools/spyHelpers";
-import { configureStore } from "..";
-import { setCurrentPrices, updatePrices } from "../actions";
+import {
+  fetchResponseError,
+  fetchResponseOk,
+} from "../../../assets/js/test-utils/tools/spyHelpers";
+import { configureStore } from "../..";
+import { setCoinsRequestError, setPrices, updatePrices } from "../../actions";
 
 describe("updateLogin", () => {
   let store;
 
-  const coins = [{ name: "coin1" }, { name: "coin2" }];
+  const coins = {
+    data: {
+      rates: {
+        coin1: 9.99,
+        coin2: 0.98,
+      },
+    },
+  };
 
   beforeEach(() => {
     jest.spyOn(window, "fetch").mockReturnValue(fetchResponseOk(coins));
@@ -32,7 +42,17 @@ describe("updateLogin", () => {
       dispatchUpdate();
       return expectRedux(store)
         .toDispatchAnAction()
-        .matching(setCurrentPrices(coins));
+        .matching(setPrices(coins.data.rates));
+    });
+  });
+
+  describe("request failed", () => {
+    it("sets the error status to true", () => {
+      jest.spyOn(window, "fetch").mockReturnValue(fetchResponseError());
+      dispatchUpdate();
+      return expectRedux(store)
+        .toDispatchAnAction()
+        .matching(setCoinsRequestError(true));
     });
   });
 });

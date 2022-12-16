@@ -7,17 +7,20 @@ import {
 import createSagaMiddleware from "redux-saga";
 import { takeLatest } from "redux-saga/effects";
 import {
-  UPDATE_CURRENT_PRICES,
+  UPDATE_PRICES,
   UPDATE_LOGIN_STATUS,
+  GET_COINS,
 } from "./actions/actionTypes";
 import { authReducer } from "./reducers/authReducer/authReducer";
-import { updatePrices } from "./sagas/updatePrices";
-import { updateLogin } from "./sagas/updateLogin";
+import { updatePrices } from "./sagas/updatePrices/updatePrices";
+import { updateLogin } from "./sagas/updateLogin/updateLogin";
 import { pricesReducer } from "./reducers/priceReducer/pricesReducer";
+import { getCoins } from "./sagas/getCoins/getCoinNames";
 
 function* rootSaga() {
   yield takeLatest(UPDATE_LOGIN_STATUS, updateLogin);
-  yield takeLatest(UPDATE_CURRENT_PRICES, updatePrices);
+  yield takeLatest(UPDATE_PRICES, updatePrices);
+  yield takeLatest(GET_COINS, getCoins);
 }
 
 export const configureStore = (storeEnhancers = []) => {

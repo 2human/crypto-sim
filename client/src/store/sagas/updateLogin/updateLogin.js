@@ -1,6 +1,6 @@
 import { call, put } from "redux-saga/effects";
-import { setLoginStatus, setUserId } from "../actions";
-import { fetchUser } from "./sagaHelpers";
+import { setLoginStatus, setUserId } from "../../actions";
+import { fetchUser } from "../sagaHelpers";
 
 export function* updateLogin() {
   const result = yield call(fetchUser);

@@ -3,6 +3,7 @@ import "whatwg-fetch";
 import { createContainer } from "../../assets/js/test-utils/tools/domTools";
 import {
   childrenOf,
+  createConnectorShallowRenderer,
   createShallowRenderer,
   prop,
   type,
@@ -13,6 +14,13 @@ import {
 } from "../../assets/js/test-utils/reusableTests/domTests";
 import { Prices, Prices__Table } from "./Prices";
 import Table from "react-bootstrap/Table";
+import {
+  ConnectedPrices,
+  mapDispatchToProps,
+  mapStateToProps,
+} from "./ConnectedPrices";
+import { updatePrices, getCoins } from "../../store/actions";
+import { coinsArray } from "./pricesHelpers";
 
 describe("", () => {
   let render, element, elements;
@@ -149,6 +157,80 @@ describe("", () => {
       );
       expect(firstRowIcon).not.toBeNull();
       expect(secondRowIcon).not.toBeNull();
+    });
+  });
+
+  it("calls getCoins when mounted", () => {
+    const getCoinSpy = jest.fn();
+    render(<Prices getCoins={getCoinSpy} />);
+    expect(getCoinSpy).toHaveBeenCalled();
+  });
+
+  it("calls getCoins when mounted", () => {
+    const updatePricesSpy = jest.fn();
+    render(<Prices updatePrices={updatePricesSpy} />);
+    expect(updatePricesSpy).toHaveBeenCalled();
+  });
+});
+
+const coinsObject = {
+  coin1id: {
+    name: "coin1name",
+    price: 998,
+  },
+  coin2id: {
+    name: "coin2name",
+    price: 999,
+  },
+};
+
+describe("ConnectedPrices", () => {
+  let shallowRenderConnector, connectedChild;
+
+  const state = {
+    prices: {
+      prices: "prices",
+      coins: coinsObject,
+    },
+  };
+
+  beforeEach(() => {
+    ({ shallowRenderConnector, connectedChild } =
+      createConnectorShallowRenderer());
+  });
+
+  it("connects the SearchResults component", () => {
+    shallowRenderConnector(<ConnectedPrices />);
+    expect(connectedChild()).toEqual(Prices);
+  });
+
+  it("maps the right state to props", () => {
+    expect(mapStateToProps(state)).toMatchObject({
+      coins: coinsArray(coinsObject),
+    });
+  });
+
+  it("mapsDispatchToProps", () => {
+    expect(mapDispatchToProps).toMatchObject({
+      updatePrices,
+      getCoins,
+    });
+  });
+});
+
+describe("pricesHelpers", () => {
+  describe("coinsArray", () => {
+    it("returns the coins in array format", () => {
+      expect(coinsArray(coinsObject)).toEqual([
+        {
+          id: "coin1id",
+          ...coinsObject.coin1id,
+        },
+        {
+          id: "coin2id",
+          ...coinsObject.coin2id,
+        },
+      ]);
     });
   });
 });

@@ -1,17 +1,23 @@
 import {
-  setCurrentPrices,
+  setPrices,
   setLoginStatus,
   setUserId,
   updatePrices,
   updateLoginStatus,
+  getCoins,
+  setCoins,
+  setCoinsRequestError,
 } from ".";
 import { itReturnsTheRightObject } from "../../assets/js/test-utils/reusableTests/actionTests";
 import {
   SET_LOGIN_STATUS,
   UPDATE_LOGIN_STATUS,
   SET_USER_ID,
-  UPDATE_CURRENT_PRICES,
-  SET_CURRENT_PRICES,
+  UPDATE_PRICES,
+  SET_PRICES,
+  GET_COINS,
+  SET_COINS,
+  SET_COINS_REQUEST_ERROR,
 } from "./actionTypes";
 
 describe("actions", () => {
@@ -34,13 +40,31 @@ describe("actions", () => {
   });
 
   itReturnsTheRightObject(updatePrices(), {
-    type: UPDATE_CURRENT_PRICES,
+    type: UPDATE_PRICES,
   });
 
   const prices = [{ coin: "coin1" }, { coin: "coin2" }];
 
-  itReturnsTheRightObject(setCurrentPrices(prices), {
-    type: SET_CURRENT_PRICES,
+  itReturnsTheRightObject(setPrices(prices), {
+    type: SET_PRICES,
     payload: prices,
+  });
+
+  itReturnsTheRightObject(getCoins(), {
+    type: GET_COINS,
+  });
+
+  const coins = [{ id: "coinid", name: "coinname" }];
+
+  itReturnsTheRightObject(setCoins(coins), {
+    type: SET_COINS,
+    payload: coins,
+  });
+
+  const error = "errorStatus";
+
+  itReturnsTheRightObject(setCoinsRequestError(error), {
+    type: SET_COINS_REQUEST_ERROR,
+    payload: error,
   });
 });

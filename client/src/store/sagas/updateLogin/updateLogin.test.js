@@ -3,9 +3,9 @@ import "whatwg-fetch";
 import {
   fetchResponseError,
   fetchResponseOk,
-} from "../../assets/js/test-utils/tools/spyHelpers";
-import { configureStore } from "..";
-import { setLoginStatus, setUserId, updateLoginStatus } from "../actions";
+} from "../../../assets/js/test-utils/tools/spyHelpers";
+import { configureStore } from "../..";
+import { setLoginStatus, setUserId, updateLoginStatus } from "../../actions";
 
 describe("updateLogin", () => {
   let store;

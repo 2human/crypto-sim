@@ -8,12 +8,13 @@ const getPrices = async () => {
     "https://api.coinbase.com/v2/exchange-rates?currency=USD"
   );
   const prices = await res.json();
-  console.log(prices.data);
+  // console.log(prices.data.rates);
 };
-
-export const Prices = ({ coins }) => {
+export const Prices = ({ coins, updatePrices, getCoins }) => {
   useEffect(() => {
-    getPrices();
+    getCoins();
+    updatePrices();
+    // console.log(coins);
   }, []);
   return (
     <div id="prices" className="prices">
@@ -75,5 +76,25 @@ export const Prices__TD = ({ children }) => (
 );
 
 Prices.defaultProps = {
-  coins: [],
+  coins: [
+    {
+      name: "Bitcoin",
+      price: "$16685.23",
+      change: "+5.21%",
+      marketCap: "$1.5 bn",
+      volume: "$56 mn",
+      supply: "19.1 mn",
+    },
+    {
+      name: "Ethereum",
+      price: "$1105.12",
+      change: "+3.21%",
+      marketCap: "$723 mn",
+      volume: "$13 mn",
+      supply: "25 mn",
+    },
+  ],
+  prices: [],
+  updatePrices: () => {},
+  getCoins: () => {},
 };
