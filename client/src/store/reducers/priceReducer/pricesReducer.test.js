@@ -3,8 +3,9 @@ import {
   setPrices,
   setLoginStatus,
   setUserId,
-  setCoins,
+  setCoinNames,
   setCoinsRequestError,
+  resetCoinsRequestError,
 } from "../../actions";
 import { defaultState, pricesReducer } from "./pricesReducer";
 import {
@@ -28,17 +29,17 @@ describe("pricesReducer", () => {
     expect(pricesReducer(undefined, {})).toEqual(defaultState);
   });
 
-  describe("setCoins", () => {
-    itMaintainsExistingState(pricesReducer, setCoins(coins));
+  describe("setCoinNames", () => {
+    itMaintainsExistingState(pricesReducer, setCoinNames(coins));
 
     it("sets up the coin array", () => {
-      expect(pricesReducer(undefined, setCoins(coins))).toMatchObject({
+      expect(pricesReducer(undefined, setCoinNames(coins))).toMatchObject({
         coins: coinsObject(coins),
       });
     });
 
     it("sets the coin names", () => {
-      expect(pricesReducer(undefined, setCoins(coins))).toMatchObject({
+      expect(pricesReducer(undefined, setCoinNames(coins))).toMatchObject({
         names: coins,
       });
     });

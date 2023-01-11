@@ -1,7 +1,7 @@
 /**
  *
  * @param {*} coinsArray
- * @returns Coin data as an object.
+ * @returns Coin data in object form.
  */
 export const coinsObject = coinsArray => {
   const coinsObj = {};

@@ -1,11 +1,13 @@
 import { call, put } from "redux-saga/effects";
-import { setCoins } from "../../actions";
+import { setCoinNames, setCoinsRequestError } from "../../actions";
 import { fetchCoins } from "../sagaHelpers";
 
-export function* getCoins() {
+export function* getCoinNames() {
   const result = yield call(fetchCoins);
   if (result.ok) {
     const coins = yield call([result, "json"]);
-    yield put(setCoins(coins));
+    yield put(setCoinNames(coins));
+  } else {
+    yield put(setCoinsRequestError(true));
   }
 }

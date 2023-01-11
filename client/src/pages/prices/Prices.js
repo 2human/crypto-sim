@@ -10,10 +10,9 @@ const getPrices = async () => {
   const prices = await res.json();
   // console.log(prices.data.rates);
 };
-export const Prices = ({ coins, updatePrices, getCoins }) => {
+export const Prices = ({ coins, assembleCoins }) => {
   useEffect(() => {
-    getCoins();
-    updatePrices();
+    assembleCoins();
     // console.log(coins);
   }, []);
   return (
@@ -95,6 +94,5 @@ Prices.defaultProps = {
     },
   ],
   prices: [],
-  updatePrices: () => {},
-  getCoins: () => {},
+  assembleCoins: () => {},
 };

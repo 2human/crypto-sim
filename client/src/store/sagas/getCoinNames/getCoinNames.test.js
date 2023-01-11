@@ -5,19 +5,21 @@ import {
   fetchResponseOk,
 } from "../../../assets/js/test-utils/tools/spyHelpers";
 import { configureStore } from "../..";
-import { setCoinsRequestError, setPrices, updatePrices } from "../../actions";
+import {
+  getCoinNames,
+  setCoinNames,
+  setCoinsRequestError,
+  setPrices,
+  updatePrices,
+} from "../../actions";
 
-describe("updateLogin", () => {
+describe("getCoinNames", () => {
   let store;
 
-  const coins = {
-    data: {
-      rates: {
-        coin1: 9.99,
-        coin2: 0.98,
-      },
-    },
-  };
+  const coins = [
+    { id: "coin1id", name: "coin1name", unusedProp: "unusedprop1" },
+    { id: "coin2id", name: "coin2name", unusedProp: "unusedprop2" },
+  ];
 
   beforeEach(() => {
     jest.spyOn(window, "fetch").mockReturnValue(fetchResponseOk(coins));
@@ -28,21 +30,21 @@ describe("updateLogin", () => {
     window.fetch.mockRestore();
   });
 
-  const dispatchUpdate = data => store.dispatch(updatePrices());
+  const dispatchUpdate = () => store.dispatch(getCoinNames());
 
-  it("submits a request to check login status", () => {
+  it("submits a request to get coin names", () => {
     dispatchUpdate();
     expect(window.fetch).toHaveBeenCalledWith(
-      "https://api.coinbase.com/v2/exchange-rates?currency=USD"
+      "https://api.pro.coinbase.com/currencies"
     );
   });
 
   describe("request success", () => {
-    it("sets the current prices on successful", () => {
+    it("sets the coin names", () => {
       dispatchUpdate();
       return expectRedux(store)
         .toDispatchAnAction()
-        .matching(setPrices(coins.data.rates));
+        .matching(setCoinNames(coins));
     });
   });
 

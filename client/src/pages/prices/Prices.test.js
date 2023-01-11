@@ -19,7 +19,7 @@ import {
   mapDispatchToProps,
   mapStateToProps,
 } from "./ConnectedPrices";
-import { updatePrices, getCoins } from "../../store/actions";
+import { updatePrices, getCoinNames, assembleCoins } from "../../store/actions";
 import { coinsArray } from "./pricesHelpers";
 
 describe("", () => {
@@ -160,16 +160,10 @@ describe("", () => {
     });
   });
 
-  it("calls getCoins when mounted", () => {
-    const getCoinSpy = jest.fn();
-    render(<Prices getCoins={getCoinSpy} />);
-    expect(getCoinSpy).toHaveBeenCalled();
-  });
-
-  it("calls getCoins when mounted", () => {
-    const updatePricesSpy = jest.fn();
-    render(<Prices updatePrices={updatePricesSpy} />);
-    expect(updatePricesSpy).toHaveBeenCalled();
+  it("calls getCoinNames when mounted", () => {
+    const assembleCoinSpy = jest.fn();
+    render(<Prices assembleCoins={assembleCoinSpy} />);
+    expect(assembleCoinSpy).toHaveBeenCalled();
   });
 });
 
@@ -212,8 +206,7 @@ describe("ConnectedPrices", () => {
 
   it("mapsDispatchToProps", () => {
     expect(mapDispatchToProps).toMatchObject({
-      updatePrices,
-      getCoins,
+      assembleCoins,
     });
   });
 });

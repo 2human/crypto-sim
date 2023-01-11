@@ -1,5 +1,5 @@
 import {
-  SET_COINS,
+  SET_COIN_NAMES,
   SET_COINS_REQUEST_ERROR,
   SET_PRICES,
 } from "../../actions/actionTypes";
@@ -18,7 +18,7 @@ export const defaultState = {
 
 export const pricesReducer = (state = defaultState, action) => {
   switch (action.type) {
-    case SET_COINS:
+    case SET_COIN_NAMES:
       return {
         ...state,
         coins: coinsObject(action.payload),
@@ -27,7 +27,6 @@ export const pricesReducer = (state = defaultState, action) => {
     case SET_PRICES:
       return {
         ...state,
-        coins: coinsWithPrices(state.coins, action.payload),
         prices: action.payload,
       };
     case SET_COINS_REQUEST_ERROR:

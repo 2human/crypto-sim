@@ -4,6 +4,7 @@ export const SET_USER_ID = "SET_USER_ID";
 
 export const UPDATE_PRICES = "UPDATE_PRICES";
 export const SET_PRICES = "SET_PRICES";
-export const GET_COINS = "GET_COINS";
-export const SET_COINS = "SET_COINS";
-export const SET_COINS_REQUEST_ERROR = "SET_COINs_REQUEST_ERROR";
+export const GET_COIN_NAMES = "GET_COIN_NAMES";
+export const SET_COIN_NAMES = "SET_COIN_NAMES";
+export const SET_COINS_REQUEST_ERROR = "SET_COINS_REQUEST_ERROR";
+export const ASSEMBLE_COINS = "ASSEMBLE_COINS";

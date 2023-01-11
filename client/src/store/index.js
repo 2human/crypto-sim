@@ -9,18 +9,21 @@ import { takeLatest } from "redux-saga/effects";
 import {
   UPDATE_PRICES,
   UPDATE_LOGIN_STATUS,
-  GET_COINS,
+  GET_COIN_NAMES,
+  ASSEMBLE_COINS,
 } from "./actions/actionTypes";
 import { authReducer } from "./reducers/authReducer/authReducer";
 import { updatePrices } from "./sagas/updatePrices/updatePrices";
 import { updateLogin } from "./sagas/updateLogin/updateLogin";
 import { pricesReducer } from "./reducers/priceReducer/pricesReducer";
-import { getCoins } from "./sagas/getCoins/getCoinNames";
+import { getCoinNames } from "./sagas/getCoinNames/getCoinNames";
+import { assembleCoins } from "./sagas/assembleCoins/assembleCoins";
 
 function* rootSaga() {
   yield takeLatest(UPDATE_LOGIN_STATUS, updateLogin);
   yield takeLatest(UPDATE_PRICES, updatePrices);
-  yield takeLatest(GET_COINS, getCoins);
+  yield takeLatest(GET_COIN_NAMES, getCoinNames);
+  yield takeLatest(ASSEMBLE_COINS, assembleCoins);
 }
 
 export const configureStore = (storeEnhancers = []) => {

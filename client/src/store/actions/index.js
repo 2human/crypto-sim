@@ -4,9 +4,11 @@ import {
   SET_USER_ID,
   UPDATE_PRICES,
   SET_PRICES,
-  GET_COINS,
-  SET_COINS,
+  GET_COIN_NAMES,
+  SET_COIN_NAMES,
   SET_COINS_REQUEST_ERROR,
+  RESET_COINS_REQUEST_ERROR,
+  ASSEMBLE_COINS,
 } from "./actionTypes";
 
 export const setLoginStatus = status => {
@@ -29,14 +31,18 @@ export const setPrices = prices => {
   return { type: SET_PRICES, payload: prices };
 };
 
-export const getCoins = () => {
-  return { type: GET_COINS };
+export const getCoinNames = () => {
+  return { type: GET_COIN_NAMES };
 };
 
-export const setCoins = coins => {
-  return { type: SET_COINS, payload: coins };
+export const setCoinNames = coins => {
+  return { type: SET_COIN_NAMES, payload: coins };
 };
 
 export const setCoinsRequestError = status => {
   return { type: SET_COINS_REQUEST_ERROR, payload: status };
+};
+
+export const assembleCoins = () => {
+  return { type: ASSEMBLE_COINS };
 };

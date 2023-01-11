@@ -7,10 +7,10 @@ import {
 import { configureStore } from "../..";
 import { setCoinsRequestError, setPrices, updatePrices } from "../../actions";
 
-describe("updateLogin", () => {
+describe("updatePrices", () => {
   let store;
 
-  const coins = {
+  const prices = {
     data: {
       rates: {
         coin1: 9.99,
@@ -20,7 +20,7 @@ describe("updateLogin", () => {
   };
 
   beforeEach(() => {
-    jest.spyOn(window, "fetch").mockReturnValue(fetchResponseOk(coins));
+    jest.spyOn(window, "fetch").mockReturnValue(fetchResponseOk(prices));
     store = configureStore([storeSpy]);
   });
 
@@ -30,7 +30,7 @@ describe("updateLogin", () => {
 
   const dispatchUpdate = data => store.dispatch(updatePrices());
 
-  it("submits a request to check login status", () => {
+  it("submits a request to get coin prices", () => {
     dispatchUpdate();
     expect(window.fetch).toHaveBeenCalledWith(
       "https://api.coinbase.com/v2/exchange-rates?currency=USD"
@@ -38,11 +38,11 @@ describe("updateLogin", () => {
   });
 
   describe("request success", () => {
-    it("sets the current prices on successful", () => {
+    it("sets the current prices on succes", () => {
       dispatchUpdate();
       return expectRedux(store)
         .toDispatchAnAction()
-        .matching(setPrices(coins.data.rates));
+        .matching(setPrices(prices.data.rates));
     });
   });
 

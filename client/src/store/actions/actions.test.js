@@ -4,9 +4,11 @@ import {
   setUserId,
   updatePrices,
   updateLoginStatus,
-  getCoins,
-  setCoins,
+  getCoinNames,
+  setCoinNames,
   setCoinsRequestError,
+  resetCoinsRequestError,
+  assembleCoins,
 } from ".";
 import { itReturnsTheRightObject } from "../../assets/js/test-utils/reusableTests/actionTests";
 import {
@@ -15,9 +17,11 @@ import {
   SET_USER_ID,
   UPDATE_PRICES,
   SET_PRICES,
-  GET_COINS,
-  SET_COINS,
+  GET_COIN_NAMES,
+  SET_COIN_NAMES,
   SET_COINS_REQUEST_ERROR,
+  RESET_COINS_REQUEST_ERROR,
+  ASSEMBLE_COINS,
 } from "./actionTypes";
 
 describe("actions", () => {
@@ -50,14 +54,14 @@ describe("actions", () => {
     payload: prices,
   });
 
-  itReturnsTheRightObject(getCoins(), {
-    type: GET_COINS,
+  itReturnsTheRightObject(getCoinNames(), {
+    type: GET_COIN_NAMES,
   });
 
   const coins = [{ id: "coinid", name: "coinname" }];
 
-  itReturnsTheRightObject(setCoins(coins), {
-    type: SET_COINS,
+  itReturnsTheRightObject(setCoinNames(coins), {
+    type: SET_COIN_NAMES,
     payload: coins,
   });
 
@@ -66,5 +70,9 @@ describe("actions", () => {
   itReturnsTheRightObject(setCoinsRequestError(error), {
     type: SET_COINS_REQUEST_ERROR,
     payload: error,
+  });
+
+  itReturnsTheRightObject(assembleCoins(), {
+    type: ASSEMBLE_COINS,
   });
 });
