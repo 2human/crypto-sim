@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { Prices } from "../Prices";
+import { Coins } from "../Coins";
 import {
   coinsArray,
   coinsObject,
   assembledCoinData,
-} from "../../../store/reducers/priceReducer/pricesReducerHelpers";
+} from "../../../store/reducers/coinsReducer/coinsReducerHelpers";
 
-export const PricesLoader = ({ assembleCoins, coinNames, prices }) => {
+export const CoinsLoader = ({ assembleCoins, coinNames, prices }) => {
   const [assembledCoins, setAssembledCoins] = useState([]);
 
   useEffect(() => {
@@ -31,12 +31,12 @@ export const PricesLoader = ({ assembleCoins, coinNames, prices }) => {
 
   return (
     <div>
-      <Prices coins={assembledCoins} />
+      <Coins coins={assembledCoins} />
     </div>
   );
 };
 
-PricesLoader.defaultProps = {
+CoinsLoader.defaultProps = {
   assembleCoins: () => {},
   coinNames: null,
   prices: null,

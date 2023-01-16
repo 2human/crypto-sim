@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "Crypto Exchange Sim",
+  "name": "Crypto Exchange Simulator",
   "icons": [
     {
       "src": "favicon.ico",

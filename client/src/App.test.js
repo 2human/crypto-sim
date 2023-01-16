@@ -11,7 +11,7 @@ import {
   type,
 } from "./assets/js/test-utils/tools/shallowDomTools";
 import { ConnectedHeader } from "./layouts/Header/ConnectedHeader";
-import { ConnectedPrices } from "./pages/prices/ConnectedPrices";
+import { ConnectedCoins } from "./pages/prices/ConnectedCoins";
 
 describe("App", () => {
   let shallowRender, elementMatching, elementsMatching;
@@ -37,6 +37,6 @@ describe("App", () => {
   it("renders the Header by default", () => {
     shallowRender(<App />);
     expect(routeFor("/")).toBeDefined();
-    expect(routeFor("/").props.element.type).toEqual(ConnectedPrices);
+    expect(routeFor("/").props.element.type).toEqual(ConnectedCoins);
   });
 });

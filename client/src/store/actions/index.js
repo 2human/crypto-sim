@@ -2,13 +2,14 @@ import {
   SET_LOGIN_STATUS,
   UPDATE_LOGIN_STATUS,
   SET_USER_ID,
-  UPDATE_PRICES,
+  GET_COIN_PRICES,
   SET_PRICES,
   GET_COIN_NAMES,
   SET_COIN_NAMES,
   SET_COINS_REQUEST_ERROR,
   RESET_COINS_REQUEST_ERROR,
   ASSEMBLE_COINS,
+  GET_COIN_STATS,
 } from "./actionTypes";
 
 export const setLoginStatus = status => {
@@ -24,7 +25,7 @@ export const setUserId = userId => {
 };
 
 export const updatePrices = () => {
-  return { type: UPDATE_PRICES };
+  return { type: GET_COIN_PRICES };
 };
 
 export const setPrices = prices => {
@@ -45,4 +46,12 @@ export const setCoinsRequestError = status => {
 
 export const assembleCoins = () => {
   return { type: ASSEMBLE_COINS };
+};
+
+export const getCoinStats = () => {
+  return { type: GET_COIN_STATS };
+};
+
+export const setCoinStats = stats => {
+  return { type: GET_COIN_STATS, payload: stats };
 };

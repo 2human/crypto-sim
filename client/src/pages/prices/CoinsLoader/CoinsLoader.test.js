@@ -5,13 +5,8 @@ import {
   createShallowRenderer,
   type,
 } from "../../../assets/js/test-utils/tools/shallowDomTools";
-import { Prices } from "../Prices";
-import { PricesLoader } from "./PricesLoader";
-import {
-  coinsArray,
-  coinsObject,
-  assembledCoinData,
-} from "../../../store/reducers/priceReducer/pricesReducerHelpers";
+import { Coins } from "../Coins";
+import { CoinsLoader } from "./CoinsLoader";
 
 //mock of coin names fetched from API
 const coinNames = [
@@ -31,18 +26,18 @@ const prices = {
 };
 
 // mock of assembled coin data assembled from api requests
-const coinsWithPricesArray = [
+const coinsWithCoinsArray = [
   { id: "coin1id", name: "coin1name", price: 9.99 },
   { id: "coin2id", name: "coin2name", price: 0.98 },
 ];
 
 // mock of assembled coin data assembled from api requests
-const coinsWithPricesObj = {
+const coinsWithCoinsObj = {
   coin1id: { name: "coin1name", price: 9.99 },
   coin2id: { name: "coin2name", price: 0.98 },
 };
 
-describe("PricesLoader", () => {
+describe("CoinsLoader", () => {
   let shallowRender, elementMatching, elementsMatching;
   let render, element, elements;
 
@@ -52,30 +47,18 @@ describe("PricesLoader", () => {
       createShallowRenderer());
   });
 
-  itRendersTheComponent(<PricesLoader />, Prices);
+  itRendersTheComponent(<CoinsLoader />, Coins);
 
-  it("initially renders Prices with an empty array as coins prop", () => {
-    shallowRender(<PricesLoader />);
-    const PricesComponent = elementMatching(type(Prices));
-    expect(PricesComponent).not.toBeNull();
-    expect(PricesComponent.props.coins).toEqual([]);
+  it("initially renders Coins with an empty array as coins prop", () => {
+    shallowRender(<CoinsLoader />);
+    const CoinsComponent = elementMatching(type(Coins));
+    expect(CoinsComponent).not.toBeNull();
+    expect(CoinsComponent.props.coins).toEqual([]);
   });
 
   it("calls assembleCoins when mounted", () => {
     const assembleCoinSpy = jest.fn();
-    render(<PricesLoader assembleCoins={assembleCoinSpy} />);
+    render(<CoinsLoader assembleCoins={assembleCoinSpy} />);
     expect(assembleCoinSpy).toHaveBeenCalled();
-  });
-
-  // const flushPromises = () => {
-  //   return new Promise(resolve => setImmediate(resolve));
-  // };
-
-  it.skip("passes the assembled coins array to the Prices prop when data is loaded", async () => {
-    shallowRender(<PricesLoader coinNames={coinNames} prices={prices} />);
-    // setTimeout(() => {}, 5000);
-    const PricesComponent = elementMatching(type(Prices));
-    expect(PricesComponent).not.toBeNull();
-    expect(PricesComponent.props.coins).toEqual(coinsWithPricesArray);
   });
 });

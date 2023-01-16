@@ -7,13 +7,13 @@ import {
   setCoinsRequestError,
   resetCoinsRequestError,
 } from "../../actions";
-import { defaultState, pricesReducer } from "./pricesReducer";
+import { defaultState, coinsReducer } from "./coinsReducer";
 import {
   coinsObject,
   assembledCoinData,
   parsedCoins,
   coinsArray,
-} from "./pricesReducerHelpers";
+} from "./coinsReducerHelpers";
 
 //mock of coin names fetched from API
 const coinNames = [
@@ -44,39 +44,39 @@ const coinsWithPricesObj = {
   coin2id: { name: "coin2name", price: 0.98 },
 };
 
-describe("pricesReducer", () => {
+describe("coinsReducer", () => {
   it("returns the default state when undefined state provided", () => {
-    expect(pricesReducer(undefined, {})).toEqual(defaultState);
+    expect(coinsReducer(undefined, {})).toEqual(defaultState);
   });
 
   describe("setCoinNames", () => {
-    itMaintainsExistingState(pricesReducer, setCoinNames(coinNames));
+    itMaintainsExistingState(coinsReducer, setCoinNames(coinNames));
 
     it("sets the coin names", () => {
-      expect(pricesReducer(undefined, setCoinNames(coinNames))).toMatchObject({
+      expect(coinsReducer(undefined, setCoinNames(coinNames))).toMatchObject({
         names: coinNames,
       });
     });
 
     it("updates assembledCoins when all other data exists", () => {
-      expect(pricesReducer({ prices }, setCoinNames(coinNames))).toMatchObject({
+      expect(coinsReducer({ prices }, setCoinNames(coinNames))).toMatchObject({
         assembledCoins: coinsWithPricesObj,
       });
     });
   });
 
   describe("setPrices", () => {
-    itMaintainsExistingState(pricesReducer, setPrices(prices));
+    itMaintainsExistingState(coinsReducer, setPrices(prices));
 
     it("sets the coin prices", () => {
-      expect(pricesReducer(undefined, setPrices(prices))).toMatchObject({
+      expect(coinsReducer(undefined, setPrices(prices))).toMatchObject({
         prices: prices,
       });
     });
 
     it("updates assembledCoins when all other data exists", () => {
       expect(
-        pricesReducer({ names: coinNames }, setPrices(prices))
+        coinsReducer({ names: coinNames }, setPrices(prices))
       ).toMatchObject({
         assembledCoins: coinsWithPricesObj,
       });
@@ -86,10 +86,10 @@ describe("pricesReducer", () => {
   describe("setCoinsRequestError", () => {
     const errorStatus = true;
 
-    itMaintainsExistingState(pricesReducer, setCoinsRequestError(errorStatus));
+    itMaintainsExistingState(coinsReducer, setCoinsRequestError(errorStatus));
     it("sets the error status to the one given", () => {
       expect(
-        pricesReducer(undefined, setCoinsRequestError(errorStatus))
+        coinsReducer(undefined, setCoinsRequestError(errorStatus))
       ).toMatchObject({
         errorStatus: errorStatus,
       });

@@ -12,18 +12,18 @@ import {
   itRendersTheComponent,
   itRendersWithPropValue,
 } from "../../assets/js/test-utils/reusableTests/domTests";
-import { Prices, Prices__Table } from "./Prices";
+import { Coins, Coins__Table } from "./Coins";
 import Table from "react-bootstrap/Table";
 import {
-  ConnectedPrices,
+  ConnectedCoins,
   mapDispatchToProps,
   mapStateToProps,
-} from "./ConnectedPrices";
-import { updatePrices, getCoinNames, assembleCoins } from "../../store/actions";
-import { PricesLoader } from "./PricesLoader/PricesLoader";
-import { coinsArray } from "../../store/reducers/priceReducer/pricesReducerHelpers";
+} from "./ConnectedCoins";
+import { updateCoins, getCoinNames, assembleCoins } from "../../store/actions";
+import { CoinsLoader } from "./CoinsLoader/CoinsLoader";
+import { coinsArray } from "../../store/reducers/coinsReducer/coinsReducerHelpers";
 
-describe("Prices", () => {
+describe("Coins", () => {
   let render, element, elements;
 
   let shallowRender, elementMatching, elementsMatching;
@@ -35,37 +35,37 @@ describe("Prices", () => {
   });
 
   it("renders the #prices element", () => {
-    render(<Prices />);
+    render(<Coins />);
     expect(element("#prices")).not.toBeNull();
   });
 
-  itRendersTheComponent(<Prices />, Prices__Table);
+  itRendersTheComponent(<Coins />, Coins__Table);
 
   describe("table", () => {
-    itRendersTheComponent(<Prices__Table />, Table);
-    itRendersWithPropValue(<Prices__Table />, Table, "hover", true);
+    itRendersTheComponent(<Coins__Table />, Table);
+    itRendersWithPropValue(<Coins__Table />, Table, "hover", true);
     itRendersWithPropValue(
-      <Prices__Table />,
+      <Coins__Table />,
       Table,
       "className",
-      "prices__table"
+      "coins__table"
     );
   });
 
   describe("thead", () => {
-    it("renders the .prices__thead element", () => {
-      render(<Prices />);
-      expect(element(".prices__table .prices__thead")).not.toBeNull();
+    it("renders the .coins__thead element", () => {
+      render(<Coins />);
+      expect(element(".coins__table .coins__thead")).not.toBeNull();
     });
 
     it("renders a tr element within the thead", () => {
-      render(<Prices />);
-      expect(element(".prices__table .prices__tr")).not.toBeNull();
+      render(<Coins />);
+      expect(element(".coins__table .coins__tr")).not.toBeNull();
     });
 
     it("renders each column header with the right text", () => {
-      render(<Prices />);
-      const headers = elements(".prices__tr .prices__header");
+      render(<Coins />);
+      const headers = elements(".coins__tr .coins__header");
       expect(headers[0].textContent).toEqual("Name");
       expect(headers[1].textContent).toEqual("Price");
       expect(headers[2].textContent).toEqual("Change");
@@ -77,8 +77,8 @@ describe("Prices", () => {
 
   describe("tbody", () => {
     it("renders the tbody element", () => {
-      render(<Prices />);
-      expect(element(".prices__table .prices__tbody")).not.toBeNull();
+      render(<Coins />);
+      expect(element(".coins__table .coins__tbody")).not.toBeNull();
     });
 
     const coins = [
@@ -101,60 +101,60 @@ describe("Prices", () => {
     ];
 
     it("renders a table row for each coin object", () => {
-      render(<Prices coins={coins} />);
-      const coinRows = elements(".prices__tbody .prices__tr");
+      render(<Coins coins={coins} />);
+      const coinRows = elements(".coins__tbody .coins__tr");
       expect(coinRows).not.toBeNull();
       expect(coinRows).toHaveLength(coins.length);
     });
 
     const firstRowDataCells = () =>
-      elements(".prices__tbody .prices__tr:nth-child(1) .prices__td");
+      elements(".coins__tbody .coins__tr:nth-child(1) .coins__td");
     const secondRowDataCells = () =>
-      elements(".prices__tbody .prices__tr:nth-child(2) .prices__td");
+      elements(".coins__tbody .coins__tr:nth-child(2) .coins__td");
 
     it("renders the right coin names in each row1", () => {
-      render(<Prices coins={coins} />);
+      render(<Coins coins={coins} />);
       expect(firstRowDataCells()[0].textContent).toEqual(coins[0].name);
       expect(secondRowDataCells()[0].textContent).toEqual(coins[1].name);
     });
 
     it("renders the right coin prices in each row", () => {
-      render(<Prices coins={coins} />);
+      render(<Coins coins={coins} />);
       expect(firstRowDataCells()[1].textContent).toEqual(coins[0].price);
       expect(secondRowDataCells()[1].textContent).toEqual(coins[1].price);
     });
 
     it("renders the right market caps in each row", () => {
-      render(<Prices coins={coins} />);
+      render(<Coins coins={coins} />);
       expect(firstRowDataCells()[3].textContent).toEqual(coins[0].marketCap);
       expect(secondRowDataCells()[3].textContent).toEqual(coins[1].marketCap);
     });
 
     it("renders the right change in each row", () => {
-      render(<Prices coins={coins} />);
+      render(<Coins coins={coins} />);
       expect(firstRowDataCells()[4].textContent).toEqual(coins[0].volume);
       expect(secondRowDataCells()[4].textContent).toEqual(coins[1].volume);
     });
 
     it("renders the right volume in each row", () => {
-      render(<Prices coins={coins} />);
+      render(<Coins coins={coins} />);
       expect(firstRowDataCells()[4].textContent).toEqual(coins[0].volume);
       expect(secondRowDataCells()[4].textContent).toEqual(coins[1].volume);
     });
 
     it("renders the right supply in each row", () => {
-      render(<Prices coins={coins} />);
+      render(<Coins coins={coins} />);
       expect(firstRowDataCells()[5].textContent).toEqual(coins[0].supply);
       expect(secondRowDataCells()[5].textContent).toEqual(coins[1].supply);
     });
 
     it("renders the .coin-icon element in the name cell", () => {
-      render(<Prices coins={coins} />);
+      render(<Coins coins={coins} />);
       const firstRowIcon = element(
-        ".prices__tbody .prices__tr:nth-child(1) .prices__td .coin-icon"
+        ".coins__tbody .coins__tr:nth-child(1) .coins__td .coin-icon"
       );
       const secondRowIcon = element(
-        ".prices__tbody .prices__tr:nth-child(2) .prices__td .coin-icon"
+        ".coins__tbody .coins__tr:nth-child(2) .coins__td .coin-icon"
       );
       expect(firstRowIcon).not.toBeNull();
       expect(secondRowIcon).not.toBeNull();
@@ -163,7 +163,7 @@ describe("Prices", () => {
 
   it("calls getCoinNames when mounted", () => {
     const assembleCoinSpy = jest.fn();
-    render(<Prices assembleCoins={assembleCoinSpy} />);
+    render(<Coins assembleCoins={assembleCoinSpy} />);
     expect(assembleCoinSpy).toHaveBeenCalled();
   });
 });
@@ -179,7 +179,7 @@ const coinsObject = {
   },
 };
 
-describe("ConnectedPrices", () => {
+describe("ConnectedCoins", () => {
   let shallowRenderConnector, connectedChild;
 
   const state = {
@@ -194,8 +194,8 @@ describe("ConnectedPrices", () => {
   });
 
   it("connects the SearchResults component", () => {
-    shallowRenderConnector(<ConnectedPrices />);
-    expect(connectedChild()).toEqual(Prices);
+    shallowRenderConnector(<ConnectedCoins />);
+    expect(connectedChild()).toEqual(Coins);
   });
 
   it("maps the right state to props", () => {

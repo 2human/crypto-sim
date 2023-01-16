@@ -1,4 +1,4 @@
-import { assembledCoinData } from "./pricesReducerHelpers";
+import { assembledCoinData } from "./coinsReducerHelpers";
 import {
   SET_COIN_NAMES,
   SET_COINS_REQUEST_ERROR,
@@ -12,7 +12,7 @@ export const defaultState = {
   errorStatus: false,
 };
 
-export const pricesReducer = (state = defaultState, action) => {
+export const coinsReducer = (state = defaultState, action) => {
   switch (action.type) {
     case SET_COIN_NAMES:
       return {
