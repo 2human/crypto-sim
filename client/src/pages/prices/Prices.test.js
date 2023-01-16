@@ -20,9 +20,10 @@ import {
   mapStateToProps,
 } from "./ConnectedPrices";
 import { updatePrices, getCoinNames, assembleCoins } from "../../store/actions";
-import { coinsArray } from "./pricesHelpers";
+import { PricesLoader } from "./PricesLoader/PricesLoader";
+import { coinsArray } from "../../store/reducers/priceReducer/pricesReducerHelpers";
 
-describe("", () => {
+describe("Prices", () => {
   let render, element, elements;
 
   let shallowRender, elementMatching, elementsMatching;
@@ -182,9 +183,8 @@ describe("ConnectedPrices", () => {
   let shallowRenderConnector, connectedChild;
 
   const state = {
-    prices: {
-      prices: "prices",
-      coins: coinsObject,
+    coins: {
+      assembledCoins: "assembledCoins",
     },
   };
 
@@ -200,30 +200,13 @@ describe("ConnectedPrices", () => {
 
   it("maps the right state to props", () => {
     expect(mapStateToProps(state)).toMatchObject({
-      coins: coinsArray(coinsObject),
+      coins: coinsArray(state.coins.assembledCoins),
     });
   });
 
   it("mapsDispatchToProps", () => {
     expect(mapDispatchToProps).toMatchObject({
       assembleCoins,
-    });
-  });
-});
-
-describe("pricesHelpers", () => {
-  describe("coinsArray", () => {
-    it("returns the coins in array format", () => {
-      expect(coinsArray(coinsObject)).toEqual([
-        {
-          id: "coin1id",
-          ...coinsObject.coin1id,
-        },
-        {
-          id: "coin2id",
-          ...coinsObject.coin2id,
-        },
-      ]);
     });
   });
 });

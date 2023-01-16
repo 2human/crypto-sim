@@ -10,11 +10,11 @@ const getPrices = async () => {
   const prices = await res.json();
   // console.log(prices.data.rates);
 };
-export const Prices = ({ coins, assembleCoins }) => {
+export const Prices = ({ assembleCoins, coins }) => {
   useEffect(() => {
     assembleCoins();
-    // console.log(coins);
   }, []);
+
   return (
     <div id="prices" className="prices">
       <Prices__Table>
@@ -93,6 +93,6 @@ Prices.defaultProps = {
       supply: "25 mn",
     },
   ],
-  prices: [],
   assembleCoins: () => {},
+  coins: [],
 };

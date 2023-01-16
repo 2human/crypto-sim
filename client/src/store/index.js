@@ -29,7 +29,7 @@ function* rootSaga() {
 export const configureStore = (storeEnhancers = []) => {
   const sagaMiddleware = createSagaMiddleware();
   const store = legacy_createStore(
-    combineReducers({ auth: authReducer, prices: pricesReducer }),
+    combineReducers({ auth: authReducer, coins: pricesReducer }),
     compose(...[applyMiddleware(sagaMiddleware), ...storeEnhancers])
   );
   sagaMiddleware.run(rootSaga);

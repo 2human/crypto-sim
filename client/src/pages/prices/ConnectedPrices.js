@@ -1,10 +1,10 @@
 import { connect } from "react-redux";
-import { updatePrices, getCoinNames, assembleCoins } from "../../store/actions";
+import { assembleCoins } from "../../store/actions";
 import { Prices } from "./Prices";
-import { coinsArray } from "./pricesHelpers";
+import { coinsArray } from "../../store/reducers/priceReducer/pricesReducerHelpers";
 
 export const mapStateToProps = state => ({
-  coins: coinsArray(state.prices.coins),
+  coins: coinsArray(state.coins.assembledCoins),
 });
 
 export const mapDispatchToProps = { assembleCoins };

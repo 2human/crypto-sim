@@ -1,18 +1,14 @@
+import { assembledCoinData } from "./pricesReducerHelpers";
 import {
   SET_COIN_NAMES,
   SET_COINS_REQUEST_ERROR,
   SET_PRICES,
 } from "../../actions/actionTypes";
-import {
-  coinsObject,
-  coinsWithPrices,
-  parsedCoins,
-} from "./pricesReducerHelpers";
 
 export const defaultState = {
-  coins: {},
-  names: [],
-  prices: {},
+  assembledCoins: {},
+  names: null,
+  prices: null,
   errorStatus: false,
 };
 
@@ -21,12 +17,13 @@ export const pricesReducer = (state = defaultState, action) => {
     case SET_COIN_NAMES:
       return {
         ...state,
-        coins: coinsObject(action.payload),
+        assembledCoins: assembledCoinData({ ...state, names: action.payload }),
         names: action.payload,
       };
     case SET_PRICES:
       return {
         ...state,
+        assembledCoins: assembledCoinData({ ...state, prices: action.payload }),
         prices: action.payload,
       };
     case SET_COINS_REQUEST_ERROR:

@@ -11,14 +11,49 @@ export const coinsObject = coinsArray => {
   return coinsObj;
 };
 
-export const coinsWithPrices = (coins, prices) => {
-  if (!coins) return {}; //mostly for testing purposes
-  Object.keys(prices).forEach(id => {
-    if (coins[id]) {
-      //set price if there is a matching property
-      coins[id].price = prices[id];
+const filteredCoinData = coinData => {
+  let filteredData = {};
+
+  Object.keys(coinData).forEach(id => {
+    if (coinData[id].price) {
+      filteredData[id] = { ...coinData[id] };
     }
   });
 
-  return coins;
+  return filteredData;
 };
+
+/**
+ *
+ * @param {*} object Object containing different types of coin data
+ * @returns Objected with coin data joined together
+ */
+export const assembledCoinData = ({ names, prices }) => {
+  //only perform operations if all data is present
+  if (!names || !prices) {
+    return null;
+  }
+
+  const coinData = coinsObject(names);
+
+  Object.keys(prices).forEach(id => {
+    if (coinData[id]) {
+      //set price if there is a matching property
+      coinData[id].price = prices[id];
+    }
+  });
+
+  //filter out coins with no prices
+  return filteredCoinData(coinData);
+};
+
+/**
+ *
+ * @param {*} coinsObject Object containing coin data
+ * @returns Array version of object
+ */
+export const coinsArray = coinsObject =>
+  Object.keys(coinsObject).map(key => ({
+    id: key,
+    ...coinsObject[key],
+  }));
