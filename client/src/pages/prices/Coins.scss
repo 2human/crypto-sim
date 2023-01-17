@@ -1,2 +1,31 @@
 .coins {
+  &__col {
+    &--name {
+      text-align: right;
+      color: blue;
+      width: 50%;
+    }
+    &--price {
+    }
+    &--change {
+    }
+    &--market-cap {
+    }
+    &--volume {
+    }
+    &--supply {
+    }
+  }
+
+  &__th {
+    &--align-right {
+      text-align: right;
+    }
+  }
+
+  &__td {
+    &--align-right {
+      text-align: right;
+    }
+  }
 }

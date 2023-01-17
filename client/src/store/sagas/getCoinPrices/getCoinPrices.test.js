@@ -5,9 +5,9 @@ import {
   fetchResponseOk,
 } from "../../../assets/js/test-utils/tools/spyHelpers";
 import { configureStore } from "../..";
-import { setCoinsRequestError, setPrices, updatePrices } from "../../actions";
+import { setCoinsRequestError, setPrices, getCoinPrices } from "../../actions";
 
-describe("updatePrices", () => {
+describe("getCoinPrices", () => {
   let store;
 
   const prices = {
@@ -28,7 +28,7 @@ describe("updatePrices", () => {
     window.fetch.mockRestore();
   });
 
-  const dispatchUpdate = data => store.dispatch(updatePrices());
+  const dispatchUpdate = data => store.dispatch(getCoinPrices());
 
   it("submits a request to get coin prices", () => {
     dispatchUpdate();

@@ -11,18 +11,21 @@ import {
   UPDATE_LOGIN_STATUS,
   GET_COIN_NAMES,
   ASSEMBLE_COINS,
+  GET_COIN_STATS,
 } from "./actions/actionTypes";
 import { authReducer } from "./reducers/authReducer/authReducer";
-import { updatePrices } from "./sagas/getCoinPrices/getCoinPrices";
+import { getCoinPrices } from "./sagas/getCoinPrices/getCoinPrices";
 import { updateLogin } from "./sagas/updateLogin/updateLogin";
 import { coinsReducer } from "./reducers/coinsReducer/coinsReducer";
 import { getCoinNames } from "./sagas/getCoinNames/getCoinNames";
 import { assembleCoins } from "./sagas/assembleCoins/assembleCoins";
+import { getCoinStats } from "./sagas/getCoinStats/getCoinStats";
 
 function* rootSaga() {
   yield takeLatest(UPDATE_LOGIN_STATUS, updateLogin);
-  yield takeLatest(GET_COIN_PRICES, updatePrices);
+  yield takeLatest(GET_COIN_PRICES, getCoinPrices);
   yield takeLatest(GET_COIN_NAMES, getCoinNames);
+  yield takeLatest(GET_COIN_STATS, getCoinStats);
   yield takeLatest(ASSEMBLE_COINS, assembleCoins);
 }
 

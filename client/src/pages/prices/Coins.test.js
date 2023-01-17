@@ -22,6 +22,7 @@ import {
 import { updateCoins, getCoinNames, assembleCoins } from "../../store/actions";
 import { CoinsLoader } from "./CoinsLoader/CoinsLoader";
 import { coinsArray } from "../../store/reducers/coinsReducer/coinsReducerHelpers";
+import { toUSD } from "./coinsHelpers";
 
 describe("Coins", () => {
   let render, element, elements;
@@ -52,6 +53,25 @@ describe("Coins", () => {
     );
   });
 
+  describe("colgroup", () => {
+    it("renders the .coins__colgroup element", () => {
+      render(<Coins />);
+      expect(element(".coins__table colgroup.coins__colgroup")).not.toBeNull();
+    });
+
+    it("renders all the col elements", () => {
+      render(<Coins />);
+      expect(element(".coins__colgroup .coins__col--name")).not.toBeNull();
+      expect(element(".coins__colgroup .coins__col--price")).not.toBeNull();
+      expect(element(".coins__colgroup .coins__col--change")).not.toBeNull();
+      expect(
+        element(".coins__colgroup .coins__col--market-cap")
+      ).not.toBeNull();
+      expect(element(".coins__colgroup .coins__col--volume")).not.toBeNull();
+      expect(element(".coins__colgroup .coins__col--supply")).not.toBeNull();
+    });
+  });
+
   describe("thead", () => {
     it("renders the .coins__thead element", () => {
       render(<Coins />);
@@ -65,7 +85,7 @@ describe("Coins", () => {
 
     it("renders each column header with the right text", () => {
       render(<Coins />);
-      const headers = elements(".coins__tr .coins__header");
+      const headers = elements(".coins__tr .coins__th");
       expect(headers[0].textContent).toEqual("Name");
       expect(headers[1].textContent).toEqual("Price");
       expect(headers[2].textContent).toEqual("Change");
@@ -84,7 +104,7 @@ describe("Coins", () => {
     const coins = [
       {
         name: "coin1name",
-        price: "coin1price",
+        price: 23300.12333,
         change: "coin1change",
         marketCap: "coin1marketcap",
         volume: "coin1volume",
@@ -92,7 +112,7 @@ describe("Coins", () => {
       },
       {
         name: "coin2name",
-        price: "coin2price",
+        price: 342.1123,
         change: "coin2change",
         marketCap: "coin2marketcap",
         volume: "coin2volume",
@@ -120,8 +140,10 @@ describe("Coins", () => {
 
     it("renders the right coin prices in each row", () => {
       render(<Coins coins={coins} />);
-      expect(firstRowDataCells()[1].textContent).toEqual(coins[0].price);
-      expect(secondRowDataCells()[1].textContent).toEqual(coins[1].price);
+      expect(firstRowDataCells()[1].textContent).toEqual(toUSD(coins[0].price));
+      expect(secondRowDataCells()[1].textContent).toEqual(
+        toUSD(coins[1].price)
+      );
     });
 
     it("renders the right market caps in each row", () => {

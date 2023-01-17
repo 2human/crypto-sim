@@ -10,7 +10,7 @@ import {
   setCoinNames,
   setCoinsRequestError,
   setPrices,
-  updatePrices,
+  getCoinPrices,
 } from "../../actions";
 
 describe("getCoinNames", () => {

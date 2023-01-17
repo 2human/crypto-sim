@@ -28,20 +28,20 @@ const coinNamesObject = {
 
 //mock of prices fetched from API
 const prices = {
-  coin1id: 9.99,
-  coin2id: 0.98,
+  coin1id: 0.2,
+  coin2id: 0.1,
 };
 
 // mock of assembled coin data assembled from api requests
 const coinsWithPricesArray = [
-  { id: "coin1id", name: "coin1name", price: 9.99 },
-  { id: "coin2id", name: "coin2name", price: 0.98 },
+  { id: "coin1id", name: "coin1name", price: 5 },
+  { id: "coin2id", name: "coin2name", price: 10 },
 ];
 
 // mock of assembled coin data assembled from api requests
 const coinsWithPricesObj = {
-  coin1id: { name: "coin1name", price: 9.99 },
-  coin2id: { name: "coin2name", price: 0.98 },
+  coin1id: { name: "coin1name", price: 5 },
+  coin2id: { name: "coin2name", price: 10 },
 };
 
 describe("coinsReducer", () => {
@@ -97,7 +97,7 @@ describe("coinsReducer", () => {
   });
 });
 
-describe("pricesReducerHelpers", () => {
+describe("coinsReducerHelpers", () => {
   describe("coinsObject", () => {
     it("returns the coinsArray in object form", () => {
       expect(coinsObject(coinNames)).toEqual(coinNamesObject);
@@ -115,7 +115,7 @@ describe("pricesReducerHelpers", () => {
       );
     });
 
-    it("returns the combined coin data when all data is defined", () => {
+    it("returns the combined coin data when all data is defined in usd/coin", () => {
       expect(assembledCoinData({ names: coinNames, prices })).toEqual(
         coinsWithPricesObj
       );
@@ -137,32 +137,3 @@ describe("pricesReducerHelpers", () => {
     });
   });
 });
-
-// describe("priceReducerHelpers", () => {
-//   describe("assembledCoinData", () => {
-//     it("adds the prices to the coins in coin array", () => {
-//       expect(assembledCoinData(coinsObject(coinNames), prices)).toEqual({
-//         coin1id: {
-//           name: "coin1name",
-//           price: prices.coin1id,
-//         },
-//         coin2id: {
-//           name: "coin2name",
-//           price: prices.coin2id,
-//         },
-//       });
-//     });
-
-//     it("does not do anything for prices whose id is not in coins object", () => {
-//       const pricesWithUnusedId = {
-//         ...prices,
-//         unusedId: "999",
-//       };
-//       expect(
-//         assembledCoinData(coinsObject(coinNames), pricesWithUnusedId)
-//       ).toEqual({
-//         coinsWithPricesArray,
-//       });
-//     });
-//   });
-// });

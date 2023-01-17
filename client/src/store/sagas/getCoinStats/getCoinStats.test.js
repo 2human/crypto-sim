@@ -1,26 +1,41 @@
 import { storeSpy, expectRedux } from "expect-redux";
 import "whatwg-fetch";
-import {
-  fetchResponseError,
-  fetchResponseOk,
-} from "../../../assets/js/test-utils/tools/spyHelpers";
+import { fetchResponseOk } from "../../../assets/js/test-utils/tools/spyHelpers";
 import { configureStore } from "../..";
-import { setCoinsRequestError, setPrices, updatePrices } from "../../actions";
+import { getCoinStats, setCoinStats } from "../../actions";
 
-describe("updatePrices", () => {
+describe("getCoinStats", () => {
   let store;
 
-  const prices = {
-    data: {
-      rates: {
-        coin1: 9.99,
-        coin2: 0.98,
+  const stats = {
+    "coin1id-usd": {
+      stats_30day: {
+        volume: "9990000",
+      },
+      stats_24hour: {
+        open: "99",
+        high: "100",
+        low: "98",
+        last: "99.5",
+        volume: "99999",
+      },
+    },
+    "coin2id-usd": {
+      stats_30day: {
+        volume: "880000",
+      },
+      stats_24hour: {
+        open: "88",
+        high: "90",
+        low: "86",
+        last: "88",
+        volume: "88888",
       },
     },
   };
 
   beforeEach(() => {
-    jest.spyOn(window, "fetch").mockReturnValue(fetchResponseOk(prices));
+    jest.spyOn(window, "fetch").mockReturnValue(fetchResponseOk(stats));
     store = configureStore([storeSpy]);
   });
 
@@ -28,31 +43,31 @@ describe("updatePrices", () => {
     window.fetch.mockRestore();
   });
 
-  const dispatchUpdate = data => store.dispatch(updatePrices());
+  const dispatchGetStats = data => store.dispatch(getCoinStats());
 
-  it("submits a request to get coin prices", () => {
-    dispatchUpdate();
+  it("submits a request to get coin stats", () => {
+    dispatchGetStats();
     expect(window.fetch).toHaveBeenCalledWith(
-      "https://api.coinbase.com/v2/exchange-rates?currency=USD"
+      "https://api.exchange.coinbase.com/products/stats"
     );
   });
 
   describe("request success", () => {
-    it("sets the current prices on succes", () => {
-      dispatchUpdate();
-      return expectRedux(store)
-        .toDispatchAnAction()
-        .matching(setPrices(prices.data.rates));
-    });
+    // it("sets the current prices on succes", () => {
+    //   dispatchUpdate();
+    //   return expectRedux(store)
+    //     .toDispatchAnAction()
+    //     .matching(setCoinStats(prices.data.rates));
+    // });
   });
 
-  describe("request failed", () => {
-    it("sets the error status to true", () => {
-      jest.spyOn(window, "fetch").mockReturnValue(fetchResponseError());
-      dispatchUpdate();
-      return expectRedux(store)
-        .toDispatchAnAction()
-        .matching(setCoinsRequestError(true));
-    });
-  });
+  // describe("request failed", () => {
+  //   it("sets the error status to true", () => {
+  //     jest.spyOn(window, "fetch").mockReturnValue(fetchResponseError());
+  //     dispatchUpdate();
+  //     return expectRedux(store)
+  //       .toDispatchAnAction()
+  //       .matching(setCoinsRequestError(true));
+  //   });
+  // });
 });

@@ -1,13 +1,14 @@
 import { call, put } from "redux-saga/effects";
 import { setCoinsRequestError, setPrices } from "../../actions";
-import { fetchPrices } from "../sagaHelpers";
+import { fetchCoinPrices, fetchCoinStats } from "../sagaHelpers";
 
-export function* updatePrices() {
-  const result = yield call(fetchPrices);
+export function* getCoinStats() {
+  const result = yield call(fetchCoinStats);
   if (result.ok) {
     const data = yield call([result, "json"]);
-    yield put(setPrices(data.data.rates));
+    console.log(data);
+    // yield put(setPrices(data.data.rates));
   } else {
-    yield put(setCoinsRequestError(true));
+    //   yield put(setCoinsRequestError(true));
   }
 }

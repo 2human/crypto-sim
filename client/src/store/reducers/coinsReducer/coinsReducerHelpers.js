@@ -11,6 +11,8 @@ export const coinsObject = coinsArray => {
   return coinsObj;
 };
 
+const usdPerCoin = coinPerUSD => 1 / coinPerUSD;
+
 const filteredCoinData = coinData => {
   let filteredData = {};
 
@@ -39,7 +41,7 @@ export const assembledCoinData = ({ names, prices }) => {
   Object.keys(prices).forEach(id => {
     if (coinData[id]) {
       //set price if there is a matching property
-      coinData[id].price = prices[id];
+      coinData[id].price = usdPerCoin(prices[id]);
     }
   });
 

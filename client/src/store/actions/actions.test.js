@@ -2,7 +2,7 @@ import {
   setPrices,
   setLoginStatus,
   setUserId,
-  updatePrices,
+  getCoinPrices,
   updateLoginStatus,
   getCoinNames,
   setCoinNames,
@@ -46,7 +46,7 @@ describe("actions", () => {
     payload: userId,
   });
 
-  itReturnsTheRightObject(updatePrices(), {
+  itReturnsTheRightObject(getCoinPrices(), {
     type: GET_COIN_PRICES,
   });
 

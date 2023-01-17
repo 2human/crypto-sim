@@ -24,7 +24,7 @@ export const setUserId = userId => {
   return { type: SET_USER_ID, payload: userId };
 };
 
-export const updatePrices = () => {
+export const getCoinPrices = () => {
   return { type: GET_COIN_PRICES };
 };
 

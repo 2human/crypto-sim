@@ -9,7 +9,7 @@ import {
   assembleCoins,
   getCoinNames,
   setCoinsRequestError,
-  updatePrices,
+  getCoinPrices,
 } from "../../actions";
 
 describe("getCoinNames", () => {
@@ -35,6 +35,6 @@ describe("getCoinNames", () => {
 
   it("gets the coin prices", () => {
     dispatchUpdate();
-    return expectRedux(store).toDispatchAnAction().matching(updatePrices());
+    return expectRedux(store).toDispatchAnAction().matching(getCoinPrices());
   });
 });
