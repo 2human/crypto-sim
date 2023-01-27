@@ -12,6 +12,7 @@ import {
   GET_COIN_NAMES,
   ASSEMBLE_COINS,
   GET_COIN_STATS,
+  GET_COIN_DATA,
 } from "./actions/actionTypes";
 import { authReducer } from "./reducers/authReducer/authReducer";
 import { getCoinPrices } from "./sagas/getCoinPrices/getCoinPrices";
@@ -20,6 +21,7 @@ import { coinsReducer } from "./reducers/coinsReducer/coinsReducer";
 import { getCoinNames } from "./sagas/getCoinNames/getCoinNames";
 import { assembleCoins } from "./sagas/assembleCoins/assembleCoins";
 import { getCoinStats } from "./sagas/getCoinStats/getCoinStats";
+import { getCoinData } from "./sagas/getCoinData/getCoinData";
 
 function* rootSaga() {
   yield takeLatest(UPDATE_LOGIN_STATUS, updateLogin);
@@ -27,6 +29,7 @@ function* rootSaga() {
   yield takeLatest(GET_COIN_NAMES, getCoinNames);
   yield takeLatest(GET_COIN_STATS, getCoinStats);
   yield takeLatest(ASSEMBLE_COINS, assembleCoins);
+  yield takeLatest(GET_COIN_DATA, getCoinData);
 }
 
 export const configureStore = (storeEnhancers = []) => {

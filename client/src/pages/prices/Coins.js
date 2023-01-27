@@ -1,65 +1,76 @@
 import React from "react";
 import { useEffect } from "react";
 import Table from "react-bootstrap/Table";
+import Button from "react-bootstrap/Button";
 import { CoinIcon } from "../../components/CoinIcon/CoinIcon";
-import { toUSD } from "./coinsHelpers";
+import {
+  change24H,
+  formatPercent,
+  toLessDigits,
+  toLessDigitsUSD,
+  toUSD,
+  volume24H,
+} from "./coinsHelpers";
 import "./Coins.scss";
+import { Center } from "../../components/styling/Center/Center";
 
 export const fetchCoinStats = async () =>
   await window.fetch("https://api.exchange.coinbase.com/products/stats");
 
-const coinStats = async () => {
-  const result = await fetchCoinStats();
-  const stats = await result.json();
-  console.log(stats);
-};
-
-export const Coins = ({ assembleCoins, coins }) => {
+export const Coins = ({ getCoinData, coins }) => {
   useEffect(() => {
-    assembleCoins();
-    // coinStats();
+    getCoinData();
   }, []);
 
   return (
-    <div id="prices" className="prices">
-      <Coins__Table>
-        <Coins__ColGroup />
-        <Coins__THead>
-          <Coins__TR>
-            <Coins__TH style={{ paddingLeft: "3rem" }}>Name</Coins__TH>
-            <Coins__TH style={{ textAlign: "right" }}>Price</Coins__TH>
-            <Coins__TH style={{ textAlign: "right" }}>Change</Coins__TH>
-            <Coins__TH style={{ textAlign: "right" }}>Market Cap</Coins__TH>
-            <Coins__TH style={{ textAlign: "right" }}>Volume</Coins__TH>
-            <Coins__TH style={{ textAlign: "right" }}>Supply</Coins__TH>
-          </Coins__TR>
-        </Coins__THead>
-        <Coins__TBody>
-          {coins.map((coin, i) => (
-            <Coins__TR key={coin.name + " " + i}>
-              <Coins__TD>
-                <CoinIcon name={coin.name} />
-                {coin.name}
-              </Coins__TD>
-              <Coins__TD style={{ textAlign: "right" }}>
-                {toUSD(coin.price)}
-              </Coins__TD>
-              <Coins__TD style={{ textAlign: "right" }}>
-                {coin.change}
-              </Coins__TD>
-              <Coins__TD style={{ textAlign: "right" }}>
-                {coin.marketCap}
-              </Coins__TD>
-              <Coins__TD style={{ textAlign: "right" }}>
-                {coin.volume}
-              </Coins__TD>
-              <Coins__TD style={{ textAlign: "right" }}>
-                {coin.supply}
-              </Coins__TD>
+    <div id="prices" className="coins">
+      <Center>
+        <Coins__Table>
+          <Coins__ColGroup />
+          <Coins__THead>
+            <Coins__TR>
+              <Coins__TH style={{ paddingLeft: "3rem" }}>Name</Coins__TH>
+              <Coins__TH style={{ textAlign: "right" }}>Price</Coins__TH>
+              <Coins__TH style={{ textAlign: "right" }}>Change (24h)</Coins__TH>
+              <Coins__TH style={{ textAlign: "right" }}>Market Cap</Coins__TH>
+              <Coins__TH style={{ textAlign: "right" }}>Volume</Coins__TH>
+              <Coins__TH style={{ textAlign: "right" }}>Supply</Coins__TH>
+              <Coins__TH style={{ textAlign: "right" }}>Trade</Coins__TH>
             </Coins__TR>
-          ))}
-        </Coins__TBody>
-      </Coins__Table>
+          </Coins__THead>
+          <Coins__TBody>
+            {coins.map((coin, i) => (
+              <Coins__TR key={coin.name + " " + i}>
+                <Coins__TD>
+                  <CoinIcon symbol={coin.symbol} />
+                  <Coins__Container>
+                    <div>{coin.name}</div>
+                    <div>{coin.symbol}</div>
+                  </Coins__Container>
+                </Coins__TD>
+                <Coins__TD style={{ textAlign: "right" }}>
+                  {toUSD(coin.priceUsd)}
+                </Coins__TD>
+                <Coins__TD style={{ textAlign: "right" }}>
+                  {formatPercent(coin.changePercent24Hr)}
+                </Coins__TD>
+                <Coins__TD style={{ textAlign: "right" }}>
+                  {toLessDigitsUSD(coin.marketCapUsd)}
+                </Coins__TD>
+                <Coins__TD style={{ textAlign: "right" }}>
+                  {toLessDigitsUSD(coin.volumeUsd24Hr)}
+                </Coins__TD>
+                <Coins__TD style={{ textAlign: "right" }}>
+                  {toLessDigits(coin.supply)}
+                </Coins__TD>
+                <Coins__TD style={{ textAlign: "right" }}>
+                  <Button>Trade</Button>
+                </Coins__TD>
+              </Coins__TR>
+            ))}
+          </Coins__TBody>
+        </Coins__Table>
+      </Center>
     </div>
   );
 };
@@ -107,6 +118,12 @@ export const Coins__TBody = ({ children }) => (
   <tbody className="coins__tbody">{children}</tbody>
 );
 
+export const Coins__Container = ({ children }) => (
+  <span style={{ display: "inline-block", verticalAlign: "middle" }}>
+    {children}
+  </span>
+);
+
 export const Coins__TD = ({ children, style }) => (
   <td className="coins__td" style={style}>
     {children}
@@ -114,24 +131,7 @@ export const Coins__TD = ({ children, style }) => (
 );
 
 Coins.defaultProps = {
-  coins: [
-    {
-      name: "Bitcoin",
-      price: "$16685.23",
-      change: "+5.21%",
-      marketCap: "$1.5 bn",
-      volume: "$56 mn",
-      supply: "19.1 mn",
-    },
-    {
-      name: "Ethereum",
-      price: "$1105.12",
-      change: "+3.21%",
-      marketCap: "$723 mn",
-      volume: "$13 mn",
-      supply: "25 mn",
-    },
-  ],
-  assembleCoins: () => {},
+  coins: [],
+  getCoinData: () => {},
   coins: [],
 };

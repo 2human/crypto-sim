@@ -1,14 +1,21 @@
 import { storeSpy, expectRedux } from "expect-redux";
 import "whatwg-fetch";
-import { fetchResponseOk } from "../../../assets/js/test-utils/tools/spyHelpers";
+import {
+  fetchResponseError,
+  fetchResponseOk,
+} from "../../../assets/js/test-utils/tools/spyHelpers";
 import { configureStore } from "../..";
-import { getCoinStats, setCoinStats } from "../../actions";
+import {
+  getCoinStats,
+  setCoinsRequestError,
+  setCoinStats,
+} from "../../actions";
 
 describe("getCoinStats", () => {
   let store;
 
   const stats = {
-    "coin1id-usd": {
+    "coin1id-USD": {
       stats_30day: {
         volume: "9990000",
       },
@@ -20,7 +27,7 @@ describe("getCoinStats", () => {
         volume: "99999",
       },
     },
-    "coin2id-usd": {
+    "coin2id-USD": {
       stats_30day: {
         volume: "880000",
       },
@@ -43,7 +50,7 @@ describe("getCoinStats", () => {
     window.fetch.mockRestore();
   });
 
-  const dispatchGetStats = data => store.dispatch(getCoinStats());
+  const dispatchGetStats = () => store.dispatch(getCoinStats());
 
   it("submits a request to get coin stats", () => {
     dispatchGetStats();
@@ -53,21 +60,21 @@ describe("getCoinStats", () => {
   });
 
   describe("request success", () => {
-    // it("sets the current prices on succes", () => {
-    //   dispatchUpdate();
-    //   return expectRedux(store)
-    //     .toDispatchAnAction()
-    //     .matching(setCoinStats(prices.data.rates));
-    // });
+    it("sets the current prices on succes", () => {
+      dispatchGetStats();
+      return expectRedux(store)
+        .toDispatchAnAction()
+        .matching(setCoinStats(stats));
+    });
   });
 
-  // describe("request failed", () => {
-  //   it("sets the error status to true", () => {
-  //     jest.spyOn(window, "fetch").mockReturnValue(fetchResponseError());
-  //     dispatchUpdate();
-  //     return expectRedux(store)
-  //       .toDispatchAnAction()
-  //       .matching(setCoinsRequestError(true));
-  //   });
-  // });
+  describe("request failed", () => {
+    it("sets the error status to true", () => {
+      jest.spyOn(window, "fetch").mockReturnValue(fetchResponseError());
+      dispatchGetStats();
+      return expectRedux(store)
+        .toDispatchAnAction()
+        .matching(setCoinsRequestError(true));
+    });
+  });
 });

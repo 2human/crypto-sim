@@ -8,3 +8,6 @@ export const fetchCoinNames = async () =>
 
 export const fetchCoinStats = async () =>
   await window.fetch("https://api.exchange.coinbase.com/products/stats");
+
+export const fetchCoinData = async () =>
+  await window.fetch("https://api.coincap.io/v2/assets");

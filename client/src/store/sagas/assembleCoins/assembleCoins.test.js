@@ -10,6 +10,7 @@ import {
   getCoinNames,
   setCoinsRequestError,
   getCoinPrices,
+  getCoinStats,
 } from "../../actions";
 
 describe("getCoinNames", () => {
@@ -36,5 +37,10 @@ describe("getCoinNames", () => {
   it("gets the coin prices", () => {
     dispatchUpdate();
     return expectRedux(store).toDispatchAnAction().matching(getCoinPrices());
+  });
+
+  it("gets the coin stats", () => {
+    dispatchUpdate();
+    return expectRedux(store).toDispatchAnAction().matching(getCoinStats());
   });
 });

@@ -9,8 +9,6 @@ import {
   getCoinNames,
   setCoinNames,
   setCoinsRequestError,
-  setPrices,
-  getCoinPrices,
 } from "../../actions";
 
 describe("getCoinNames", () => {

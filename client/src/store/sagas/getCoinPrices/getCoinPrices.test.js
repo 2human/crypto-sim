@@ -5,7 +5,11 @@ import {
   fetchResponseOk,
 } from "../../../assets/js/test-utils/tools/spyHelpers";
 import { configureStore } from "../..";
-import { setCoinsRequestError, setPrices, getCoinPrices } from "../../actions";
+import {
+  setCoinsRequestError,
+  setCoinPrices,
+  getCoinPrices,
+} from "../../actions";
 
 describe("getCoinPrices", () => {
   let store;
@@ -42,7 +46,7 @@ describe("getCoinPrices", () => {
       dispatchUpdate();
       return expectRedux(store)
         .toDispatchAnAction()
-        .matching(setPrices(prices.data.rates));
+        .matching(setCoinPrices(prices.data.rates));
     });
   });
 

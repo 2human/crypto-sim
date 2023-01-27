@@ -1,5 +1,5 @@
 import {
-  setPrices,
+  setCoinPrices,
   setLoginStatus,
   setUserId,
   getCoinPrices,
@@ -11,6 +11,8 @@ import {
   assembleCoins,
   getCoinStats,
   setCoinStats,
+  getCoinData,
+  setCoinData,
 } from ".";
 import { itReturnsTheRightObject } from "../../assets/js/test-utils/reusableTests/actionTests";
 import {
@@ -25,6 +27,9 @@ import {
   RESET_COINS_REQUEST_ERROR,
   ASSEMBLE_COINS,
   GET_COIN_STATS,
+  SET_COIN_STATS,
+  GET_COIN_DATA,
+  SET_COIN_DATA,
 } from "./actionTypes";
 
 describe("actions", () => {
@@ -52,7 +57,7 @@ describe("actions", () => {
 
   const prices = [{ coin: "coin1" }, { coin: "coin2" }];
 
-  itReturnsTheRightObject(setPrices(prices), {
+  itReturnsTheRightObject(setCoinPrices(prices), {
     type: SET_PRICES,
     payload: prices,
   });
@@ -86,7 +91,19 @@ describe("actions", () => {
   });
 
   itReturnsTheRightObject(setCoinStats(stats), {
-    type: GET_COIN_STATS,
+    type: SET_COIN_STATS,
     payload: stats,
+  });
+
+  const data = [{ id: "coinid", data: "data" }];
+
+  itReturnsTheRightObject(getCoinData(data), {
+    type: GET_COIN_DATA,
+    payload: data,
+  });
+
+  itReturnsTheRightObject(setCoinData(data), {
+    type: SET_COIN_DATA,
+    payload: data,
   });
 });

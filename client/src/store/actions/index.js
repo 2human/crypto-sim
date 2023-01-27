@@ -10,6 +10,10 @@ import {
   RESET_COINS_REQUEST_ERROR,
   ASSEMBLE_COINS,
   GET_COIN_STATS,
+  SET_COIN_STATS,
+  GET_COINS_DATA,
+  GET_COIN_DATA,
+  SET_COIN_DATA,
 } from "./actionTypes";
 
 export const setLoginStatus = status => {
@@ -28,7 +32,7 @@ export const getCoinPrices = () => {
   return { type: GET_COIN_PRICES };
 };
 
-export const setPrices = prices => {
+export const setCoinPrices = prices => {
   return { type: SET_PRICES, payload: prices };
 };
 
@@ -53,5 +57,13 @@ export const getCoinStats = () => {
 };
 
 export const setCoinStats = stats => {
-  return { type: GET_COIN_STATS, payload: stats };
+  return { type: SET_COIN_STATS, payload: stats };
+};
+
+export const getCoinData = data => {
+  return { type: GET_COIN_DATA, payload: data };
+};
+
+export const setCoinData = data => {
+  return { type: SET_COIN_DATA, payload: data };
 };

@@ -1,9 +1,9 @@
 .coins {
+  &__table {
+    // width: 80%;
+  }
   &__col {
     &--name {
-      text-align: right;
-      color: blue;
-      width: 50%;
     }
     &--price {
     }
@@ -21,6 +21,10 @@
     &--align-right {
       text-align: right;
     }
+  }
+
+  &__tr {
+    vertical-align: middle;
   }
 
   &__td {

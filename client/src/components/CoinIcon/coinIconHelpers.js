@@ -1,14 +1,11 @@
-export const iconPath = coinName => {
+export const iconPath = symbol => {
+  symbol = symbol.toLowerCase();
   let fileName;
-  switch (coinName) {
-    case "Bitcoin":
-      fileName = "btc-icon";
-      break;
-    case "Ethereum":
-      fileName = "eth-icon";
-      break;
-    default:
-      return "";
+  try {
+    fileName = require(`../../assets/images/${symbol}-icon.png`);
+  } catch {
+    fileName = "";
   }
-  return require(`../../assets/images/${fileName}.png`);
+  return fileName;
+  // return require(`../../assets/images/${fileName}.png`);
 };
