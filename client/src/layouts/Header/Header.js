@@ -3,9 +3,7 @@ import "./Header.scss";
 import { NavLink } from "react-router-dom";
 
 import { Logo } from "../../components/Logo/Logo";
-import NavBar from "react-bootstrap/NavBar";
-import Container from "react-bootstrap/Container";
-import Button from "react-bootstrap/Button";
+import { Navbar, Container, Button } from "react-bootstrap";
 
 export const Header = ({ loggedIn, updateLoginStatus }) => {
   useEffect(() => {
@@ -13,14 +11,14 @@ export const Header = ({ loggedIn, updateLoginStatus }) => {
   }, []);
 
   return (
-    <NavBar id="header" className="header" bg="white">
+    <Navbar id="header" className="header" bg="white">
       <Container>
         <NavLink to="/" className="header__nav-link">
           <Logo />
         </NavLink>
         {loggedIn ? <Header__LogoutBtn /> : <Header__LoginBtn />}
       </Container>
-    </NavBar>
+    </Navbar>
   );
 };
 
