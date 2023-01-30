@@ -31,6 +31,17 @@ app.get("/", (req, res) => {
 
 require("./routes/authRoutes")(app);
 
+if (process.env.NODE_ENV === "production") {
+  // Express will serve up production assets like main.js
+  app.use(express.static("client/build"));
+  // Express will serve up index.html when route not recognized
+  // ordered last so that others will be used if exists
+  const path = require("path");
+  app.get("*", (req, res) => {
+    res.sendFile(path.resolve(_dirname, "client", "build", "index.html"));
+  });
+}
+
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
   console.log("Listening on port", PORT);
