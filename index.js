@@ -33,7 +33,7 @@ require("./routes/authRoutes")(app);
 
 if (process.env.NODE_ENV === "production") {
   // Express will serve up production assets like main.js
-  app.use(express.static("client/build"));
+  app.use(express.static(path.join(__dirname, "client/build")));
   // Express will serve up index.html when route not recognized
   // ordered last so that others will be used if exists
   const path = require("path");
