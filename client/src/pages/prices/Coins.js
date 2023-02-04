@@ -35,7 +35,7 @@ export const Coins = ({ getCoinData, coins }) => {
               <Coins__TH style={{ textAlign: "right" }}>Market Cap</Coins__TH>
               <Coins__TH style={{ textAlign: "right" }}>Volume</Coins__TH>
               <Coins__TH style={{ textAlign: "right" }}>Supply</Coins__TH>
-              <Coins__TH style={{ textAlign: "right" }}>Trade</Coins__TH>
+              <Coins__TH style={{ textAlign: "center" }}>Trade</Coins__TH>
             </Coins__TR>
           </Coins__THead>
           <Coins__TBody>
@@ -52,7 +52,7 @@ export const Coins = ({ getCoinData, coins }) => {
                   {toUSD(coin.priceUsd)}
                 </Coins__TD>
                 <Coins__TD style={{ textAlign: "right" }}>
-                  {formatPercent(coin.changePercent24Hr)}
+                  <Coins__Change change={coin.changePercent24Hr} />
                 </Coins__TD>
                 <Coins__TD style={{ textAlign: "right" }}>
                   {toLessDigitsUSD(coin.marketCapUsd)}
@@ -63,7 +63,7 @@ export const Coins = ({ getCoinData, coins }) => {
                 <Coins__TD style={{ textAlign: "right" }}>
                   {toLessDigits(coin.supply)}
                 </Coins__TD>
-                <Coins__TD style={{ textAlign: "right" }}>
+                <Coins__TD style={{ textAlign: "center" }}>
                   <Button>Trade</Button>
                 </Coins__TD>
               </Coins__TR>
@@ -129,6 +129,16 @@ export const Coins__TD = ({ children, style }) => (
     {children}
   </td>
 );
+
+const Coins__Change = ({ change }) => {
+  let color;
+  if (change > 0) {
+    color = "green";
+  } else if (change < 0) {
+    color = "red";
+  } else color = "black";
+  return <span style={{ color }}>{formatPercent(change)}</span>;
+};
 
 Coins.defaultProps = {
   coins: [],

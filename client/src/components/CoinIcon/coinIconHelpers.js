@@ -4,7 +4,7 @@ export const iconPath = symbol => {
   try {
     fileName = require(`../../assets/images/${symbol}-icon.png`);
   } catch {
-    fileName = "";
+    fileName = require("../../assets/images/stock-icon.png");
   }
   return fileName;
   // return require(`../../assets/images/${fileName}.png`);
